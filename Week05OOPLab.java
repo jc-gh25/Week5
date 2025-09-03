@@ -1,11 +1,15 @@
+//
+// Copyright (c) 2023 Promineo Tech
+// Author:  Promineo Tech Academic Team
+// Subject:  Object Oriented Programming
+// Java Week 05 Lab  
+//
 package week05;
 
-//
-//Copyright (c) 2023 Promineo Tech
-//Author:  Promineo Tech Academic Team
-//Subject:  Object Oriented Programming
-//Java Week 05 Lab  
-//
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Week05OOPLab {
 
@@ -45,11 +49,10 @@ public class Week05OOPLab {
 		//
 		System.out.println("\nQuestion 1: Card Class");
 		// Add your code here to instantiate a Card
-		
+		Card card = new Card("Ten", "Clubs", 10); 
 		
 		// Call the describe method on the newly instantiated card.
-		
-		
+		card.describe();
 		
 		
 
@@ -68,24 +71,22 @@ public class Week05OOPLab {
 		//
 		System.out.println("\nQuestion 2: Deck Class");
 	    // Add your code here to instantiate a Deck	
+	    Deck deck = new Deck();
 	    
 	    
 	    // Call the describe method on the newly instantiated deck.
-	    
-	    
-	    
-	    
-		
+	    deck.describe();
+
 		
 		// 3. Deck shuffle() Method:
 		//		Add a shuffle method within the Deck Class
 		System.out.println("\nQuestion 3: Deck shuffle() method");
 		// Test your method here
-		
+		deck.shuffle();
 		
 		
 		// Call the describe method on the newly shuffled deck.
-
+		deck.describe();
 		
 		
 		
@@ -93,12 +94,10 @@ public class Week05OOPLab {
 		//		Add a draw method within the Deck Class
 		System.out.println("\nQuestion 4: Deck draw() method");
 		// Test your method here
+		Card drawnCard = deck.draw();
+		drawnCard.describe();
 		
-		
-		
-		
-		
-		
+
 		
 		
 		// 5. Create Game Board:
@@ -111,19 +110,58 @@ public class Week05OOPLab {
 		// 			and deal the cards out to the "players" in the Map.
 		System.out.println("\nQuestion 5: Create Game");
 		// Call your method here
-
+		Map<String, List<Card>> newGameBoard = new HashMap<>();
+		int numberOfPlayers = 4;
+		newGameBoard = (createGame(numberOfPlayers));
+		System.out.println();
+		for (int i = 1; i <= numberOfPlayers; i++) {
+			String playerName = "Player " + i;
+			System.out.println(playerName + "\n" + "_______________");
+			List<Card> playerList = newGameBoard.get(playerName);
+			for (Card cardInHand : playerList) {
+				cardInHand.describe();
+			}
+			System.out.println();
+		}
 		
 		
 		
 		
-		
-		
-		
-	} 
+	} //end of main
 	
 	// Method 5:
-	
-	
+	private static Map<String, List<Card>> createGame(int numOfPlayers) {
+		Map<String, List<Card>> finalGameMap = new HashMap<>();
+		Deck deck = new Deck();
+		deck.shuffle();
+		System.out.println("Deck has " + deck.getCards().size() + " cards!");
+		
+		// Create the entries in the Map with the Player Name and an empty List
+		for (int i = 1; i <= numOfPlayers; i++) {
+			List<Card> playerList = new ArrayList<>();
+			String playerName = "Player " + i;
+			finalGameMap.put(playerName, playerList);
+		}
+		// Deal the deck:  draw a card, add the new card to a players hand, and store
+		for (int i = 0; i < 52/numOfPlayers; i++) {
+			for (int j = 1; j <= numOfPlayers; j++) {
+				String playerName = "Player " + j;
+				List<Card> playerList = finalGameMap.get(playerName);
+				playerList.add(deck.draw());
+				finalGameMap.replace(playerName, playerList);			
+			}
+		}
+		
+		if (52 % numOfPlayers != 0) {
+			System.out.print("With " + numOfPlayers + " players -- ");
+			System.out.println("Cards left in deck: " + 52%numOfPlayers); 
+		} else {
+			System.out.println("All cards have been dealt");
+		}
+		
+		return finalGameMap;
+	}
+
 	
 	
 
