@@ -1,0 +1,162 @@
+Java 5: Research
+
+
+OOP:
+
+1. What are the four pillars of Object-Oriented Programming? Explain each pillar.
+
+Abstraction - Present a simplified view -- Hide the complexity from the user (show only what is necessary). Abstraction lets us hide complex implementation details and present only the essential features. Abstraction is achieved through interfaces or abstract classes. They define the “what” without specifying the “how.” For example, a “User” class might have methods like getName() or updateProfile(), but the actual way these are implemented can vary. An abstract class cannot be instantiated - cannot create an object from it directly, but a subclass can be coded that inherits from it. E.g.:
+//code in the class:
+public abstract class Employee {
+ public abstract double calculatePay();  //has no method body because is not defined here and each class that inherits from it will define the method
+}
+
+//code in the subclass:
+public class SalariedEmployee extends Employee {
+ @Override
+ public double calculatePay() {
+ // TODO
+ //return null;
+ }
+}
+
+Encapsulation - Data Security -- binding related data and methods together into objects -- data hiding (hide the unnecessary). Encapsulation means bundling the data (attributes) and methods (functions) that operate on that data into a single unit—the class. This protects the data from accidental modification or misuse. 
+
+Inheritence - Code reusability - an implemented class (AKA inherited class, subclass, child class) acquiring the existing functionality of a parent class (aka super class), with the ability to add additional functionality and features into the child class (aka subclass) - an object can inherit some properties and methods from another object. Each generation may add their own touch while preserving the original legacy. A new class (“child” class) can inherit properties and methods from an existing class (“parent” class), saving code duplication and fostering reusability. For instance, if we have a “Vehicle” class with attributes like speed and color, then a “Car” class could inherit those but add specific features like the number of doors or type of engine. It is not possible to inherent from more than one class.
+
+Polymorphism - A single object can have multiple behaviors, or respond in different ways to the same function.  Allows objects to take on many forms. There are two main types: method overriding (a child class provides its own implementation for a method inherited from the parent), and method overloading (having multiple methods with the same name but different parameters). 
+
+
+2. What is the relationship between a Class and an Object?
+
+Everything in Java revolves around classes, which act as blueprints for creating objects. Methods (the actions) are defined inside these classes.
+
+In OOP, objects are the key construct in our programming, and these objects contain properties and functionality.  Instead of writing code all in one place, we structure our program into objects.  Each object will contain relevant properties and functionality, which is code that is structured into methods that can be used over and over.   In OOP, programs are written by creating objects that contain both data (properties) and methods (functionality). Another way to explain this is to think of an object, and imagine that everything that you need (data or methods) is accessible anytime you reference that object.  If you have access to the object, you also have access to any available property and functionality that belong to that object.
+
+Java hierarchy:
+
+Interfaces (like blueprints for classes): An interface specifies what a class should do, but not how to do it. The interface leaves it to classes like (ArrayList and LinkedList) to implement those methods in their own way. They lay out contracts and defines standard operations — if a class implements an interface, it provides all the methods declared in the interface. That way, different classes can still interact in predictable ways. Interfaces don’t contain any implementation themselves.
+Classes (like blueprints for objects): Think of a class as the template from which Objects are created. For example, you have a “Car” class with attributes like color, model, and methods like accelerate(), brake().
+Objects (like instances of the class): When you use the new keyword (the constructor), you create an actual car object from that blueprint - a specific instance of the class. Each has its own data (e.g., a red Honda Civic vs. a blue Toyota Camry).
+Methods (like actions of an object): These are the functions associated with each object, allowing it to perform actions or be manipulated. For example: myCar.accelerate().
+
+CLASSES
+
+https://docs.oracle.com/javase/tutorial/java/javaOO/classes.html
+
+Classes are how we structure code in OOP.  The class is like the blueprint, and objects are the instances of the class developed from the blueprint. Classes use Pascal case (First word and each word capitalized). Classes don't need a main method (a project will typically only have a main entry point, and the classes do not.)
+
+Code organization for a class:
+declaration
+fields
+constructor(s)
+methods
+
+OBJECTS
+
+https://docs.oracle.com/javase/tutorial/java/javaOO/objects.html
+
+An object is a software bundle of related state and behavior. Software objects are often used to model the real-world objects that you find in everyday life.
+
+An Object (e.g. String, Array, etc.) has a value, plus has properties (aka attributes) and methods (aka functions) which are defined on that object, and can be accessed via dot-notation.
+A Class is the template from which an Object can be created, and an Object is an instance of that class.  We use the word "instantiate" when we describe the creation of an Object from a Class by use of the Contructor of that Class.
+
+
+Advanced OOP:
+
+3. What are the differences between abstract classes and interfaces? When should you use one over the other?
+
+An abstract class cannot be instantiated directly - cannot create an object from it. It acts as a blueprint for other classes that will inherit from it. It can have both abstract methods (without implementations) and concrete methods (with implementations). A subclass must either implement all abstract methods from its parent or be declared as abstract itself. Use when you want to provide a common base for related classes, sharing some common behavior and data but allowing them to vary in specific ways.  Or for building an inheritance hierarchy where there’s a clear “is-a” relationship (e.g., a Dog is an Animal). Uses the keyword abstract before the class declaration. Allows instance variables (fields/attributes) to store data, which can be used by subclasses. Single inheritance supported (can only extend one parent class). Methods and properties can have any access modifier (public, protected, private). A subclass uses the keyword "extends".
+
+An interface defines a contract for classes that implement it, specifying methods but not providing their implementation. A class can implement multiple interfaces (Java supports multiple inheritance through interfaces), whereas it can only extend one abstract class. Uses the keyword interface before the declaration. Cannot contain instance variables; only constants (final fields) are allowed. Use an interface to define contracts that multiple unrelated classes can implement, enforcing a certain behavior without requiring them to share a common base class. This allows for flexibility and loose coupling. Methods and properties are implicitly public.
+
+Use abstract classes for tight hierarchies with shared behavior and data, interfaces for flexible contracts between unrelated types that need to support certain functionalities.
+
+https://www.geeksforgeeks.org/java/difference-between-abstract-class-and-interface-in-java/
+
+
+4. Research the SOLID principles of Object-Oriented Programming (OOP) as introduced by Robert Martin. List the principles, and give a description of each one.
+
+Single Responsibility Principle (SRP): Imagine each class as a dedicated specialist—it should only focus on one task or concern. If you spread duties too thin, changes in one area risk destabilizing others. A tight focus means easier maintenance and fewer ripple effects when updates are needed. Think of it like a surgeon who specializes instead of a general practitioner; precision is key.
+
+Open/Closed Principle (OCP): This principle is about building flexibility into your code without the need to rewrite existing parts. New functionality should be added through extension—like adding new layers or features—rather than modifying core components, which could introduce bugs. It’s akin to designing a modular system where you can snap on pieces as needed without disrupting what’s already there.
+
+Liskov Substitution Principle (LSP): If you have an animal class with subtypes like dogs and cats, each subtype must behave in a way that doesn’t break the application if it’s used in place of the base type. For example, substituting a dog for any pet should still work seamlessly—no unexpected errors! This ensures consistency and predictability, preventing headaches later on.
+
+Interface Segregation Principle (ISP): Avoid forcing clients to depend on methods they don’t use. Instead, break down large interfaces into smaller, more focused ones. Think of it like not making someone buy an entire toolbox if they only need a screwdriver; provide the right tools for the job without extra baggage. This promotes cleaner code and reduces unnecessary dependencies.
+
+Dependency Inversion Principle (DIP): High-level modules shouldn’t be coupled to low-level details—both should rely on abstractions like interfaces or abstract classes. Decoupling these components allows changes in one part of the system without affecting others, making your codebase more flexible and easier to maintain over time. It’s similar to a power strip instead of hardwiring everything directly; easy swapping and flexibility.
+
+SRP leads to focused code that’s manageable and resilient to change.
+OCP makes systems extensible without risk, reducing the need for disruptive rewrites.
+LSP ensures predictability and avoids unexpected behaviors when subtypes are swapped in.
+ISP prevents bloated interfaces, leading to leaner and more efficient designs.
+DIP decouples components, enhancing modularity and making testing easier.
+By following SOLID, you’re not just writing code; you’re crafting resilient architectures that can stand the test of time—whether it’s a small app or an enterprise system. It’s about building a foundation where elegance meets robustness, ensuring your software is both maintainable today and scalable for tomorrow.
+
+https://medium.com/@priyanshurouth/a-comprehensive-guide-to-solid-principles-in-java-history-concepts-and-application-e5cd4940c756
+
+
+Exceptions:
+
+
+5. What is an exception?
+
+An exception is defined as an event that occurs that is contrary to the expected behavior of the application or program that has been written.  Instead of functioning as expected, something happens that causes an unexpected result.
+
+A method can "throw" an exception for it to be handled in a try-catch block elsewere.
+e.g.:
+private static Team findTeamByName(String name) throws Exception {
+ for (Team team : teams) {
+  if (team.getname().equals(name)) {
+   return team;
+  }
+ } 
+throw new Exception("Team not found: " + name);
+}
+
+https://docs.oracle.com/javase/tutorial/essential/exceptions/index.html
+https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Exception.html
+
+
+6. What are the differences between checked and unchecked exceptions?
+
+In Java, there are two types of Exceptions: 
+
+- Checked Exceptions - These are checked by the compiler at compiler time and are a sub-class of the exception class. This is a design choice to make developers think about potential errors upfront. Typically, checked exceptions represent situations where recovery is possible at runtime (e.g., a file not found—you might ask the user for another path).
+Examples: File Not Found Exception, No Such Field Exception, Interrupted Exception, No Such Method Exception, Class Not Found Exception
+
+A try-catch block can handle these type of exceptions.
+e.g.
+try {
+ //code
+} catch (Exception e) {
+ //code
+ e.printStackTrace();
+ //or System.out.println(e.toString());
+) finally {
+ //code
+)
+
+Unchecked Exceptions - mistakes in coding that occur at runtime because they get generated by the mistakes in the program. They usually indicate programming errors or conditions that can’t be reasonably recovered from at runtime.
+
+Runtime Exception Example: Trying to access a Null Address, Out-of-Bounds Indices,
+Class: RuntimeException, NullPointerException, ArithmeticException, etc.
+
+Error Exception Example:  Serious issues that cause an application to abort, or to stop running, including Memory or Stack Overflow Errors, Class: OutOfMemory, StackOverflow, VirtualMachineError, etc.
+
+https://www.w3schools.in/java/questions-answers/difference-between-checked-and-unchecked-exceptions-in-java
+
+Testing:
+
+7. What is unit testing and why is it important?
+
+Unit testing ensures individual components of your code work as intended. For Java developers, mastering unit testing improves code quality and catches errors early.
+
+Unit testing uses a framework called JUnit to automatically check small parts of your code – like individual methods or classes. Think of it as making sure each tiny component works correctly before putting them all together. Each test checks one specific thing. For example, you might have a method that adds two numbers; the unit test would verify if it returns the correct sum for various inputs.
+
+Catches bugs early: When you find problems at the start, they’re easier and cheaper to fix than finding them later when everything is connected.
+Makes code more reliable: Ensures that each part does what it should, making your whole application sturdier.
+Simplifies maintenance: If you change something, unit tests can quickly confirm that the changes didn’t break existing functionality. So basically, it’s all about quality and efficiency—making sure things work right from the start and staying that way as you build bigger projects.
+
+https://zobang.net/introduction-to-unit-testing-in-java/
